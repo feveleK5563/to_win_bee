@@ -2,18 +2,18 @@
 //
 //-------------------------------------------------------------------
 #include  "MyPG.h"
-#include  "Task_Player.h"
 #include  "Task_Shot.h"
+#include  "Task_Player.h"
 
-namespace  Player
+namespace  Shot
 {
 	Resource::WP  Resource::instance;
 	//-------------------------------------------------------------------
 	//リソースの初期化
 	bool  Resource::Initialize()
 	{
-		imageName = "Player";
-		DG::Image_Create(imageName, "./data/image/Player.png");
+		imageName = "Shot";
+		DG::Image_Create(imageName, "./data/image/Shot.png");
 		return true;
 	}
 	//-------------------------------------------------------------------
@@ -33,15 +33,14 @@ namespace  Player
 		this->res = Resource::Create();
 
 		//★データ初期化
-		render2D_Priority[1] = 0.5f;
+		render2D_Priority[1] = 0.8f;
 
-		baseSpeed = 2.f;
-		pos = { float(ge->screen2DWidth) / 2, float(ge->screen2DHeight) / 2 };
+		hitBase = { -4, -4, 8, 8 };
+		shotUser = Player; //暫定
 
-		image.ImageCreate(0, 0, 1, 1);
-		image.baseImageNum = 0;
-		image.drawPos = { 16, 16 };
-		
+		image.ImageCreate(0, 0, 2, 1, 8, 8);
+		image.drawPos = { 4, 4 };
+
 		//★タスクの生成
 
 		return  true;
@@ -63,9 +62,18 @@ namespace  Player
 	//「更新」１フレーム毎に行う処理
 	void  Object::UpDate()
 	{
-		in = DI::GPad_GetState("P1");
-		MovePlayer();
-		CreateShot();
+		switch (shotUser)
+		{
+		case Player:
+			HitEnemy();
+			break;
+
+		case Enemy:
+			HitPlayer();
+			break;
+		}
+		pos += speed;
+		ScreenOutShot();
 	}
 	//-------------------------------------------------------------------
 	//「２Ｄ描画」１フレーム毎に行う処理
@@ -75,64 +83,26 @@ namespace  Player
 	}
 
 	//-------------------------------------------------------------------
-	//キー入力の処理
-	float Object::ControllKeyTable()
+	//敵との当たり判定
+	void Object::HitEnemy()
 	{
-		float keyDirection[3][3] = {
-			{ 225, 270, 315},
-			{ 180,  -1,   0},
-			{ 135,  90,  45},
-		};
-		int kdX = 1, kdY = 1;
 
-		if (in.LStick.L.on) { --kdX; }
-		if (in.LStick.R.on) { ++kdX; }
-		if (in.LStick.U.on) { --kdY; }
-		if (in.LStick.D.on) { ++kdY; }
-
-		return keyDirection[kdY][kdX];
-	}
-	//-------------------------------------------------------------------
-	//プレイヤーの動作処理
-	void Object::MovePlayer()
-	{
-		speed = { 0, 0 };
-		float angle = ControllKeyTable();
-		if (angle != -1)
-		{
-			speed.x = cos(ML::ToRadian(angle)) * baseSpeed;
-			speed.y = sin(ML::ToRadian(angle)) * baseSpeed;
-		}
-		pos += speed;
-
-		if (pos.x < float(image.drawPos.x))
-			pos.x = float(image.drawPos.x);
-		if (pos.x > float(ge->screen2DWidth) - image.drawPos.x)
-			pos.x = float(ge->screen2DWidth) - image.drawPos.x;
-		if (pos.y < float(image.drawPos.y))
-			pos.y = float(image.drawPos.y);
-		if (pos.y > float(ge->screen2DHeight) - image.drawPos.y)
-			pos.y = float(ge->screen2DHeight) - image.drawPos.y;
 	}
 
 	//-------------------------------------------------------------------
-	//弾の生成
-	void Object::CreateShot()
+	//プレイヤーとの当たり判定
+	void Object::HitPlayer()
 	{
-		if (in.B1.on)
-		{
-			if (!((cntTime++) % 9))
-			{
-				auto shot = Shot::Object::Create(true);
-				shot->pos = pos;
-				shot->pos.y -= 16.f;
-				shot->speed = { 0.f, -12.f };
-			}
-		}
-		else
-		{
-			cntTime = 0;
-		}
+
+	}
+
+	//-------------------------------------------------------------------
+	//画面外に出たら消す処理
+	void Object::ScreenOutShot()
+	{
+		if (pos.x < -16.f || float(ge->screen2DWidth) + 16.f < pos.x ||
+			pos.y < -16.f || float(ge->screen2DHeight) + 16.f < pos.y)
+			Kill();
 	}
 
 	//★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★

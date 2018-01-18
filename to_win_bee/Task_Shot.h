@@ -5,11 +5,11 @@
 //-------------------------------------------------------------------
 #include "BChara.h"
 
-namespace  Player
+namespace  Shot
 {
 	//タスクに割り当てるグループ名と固有名
 	const  string  defGroupName("本編");	//グループ名
-	const  string  defName("プレイヤー");		//タスク名
+	const  string  defName("弾");		//タスク名
 	//-------------------------------------------------------------------
 	class  Resource
 	{
@@ -49,13 +49,15 @@ namespace  Player
 	//変更可◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇
 		//追加したい変数・メソッドはここに追加する
 		//BCharaに含まれないモノのみここに追加する
+		enum ShotUser
+		{
+			Player,
+			Enemy,
+		};
+		ShotUser shotUser;
 
-		DI::VGamePad in;	//コントローラ
-
-		float baseSpeed;		//スピード
-
-		float ControllKeyTable();	//移動系キー入力の処理
-		void  MovePlayer();			//プレイヤーの動作処理
-		void  CreateShot();			//弾の出現
+		void HitEnemy();
+		void HitPlayer();
+		void ScreenOutShot();
 	};
 }

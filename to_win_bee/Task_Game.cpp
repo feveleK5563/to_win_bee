@@ -7,6 +7,7 @@
 
 #include  "Task_GameBG.h"
 #include  "Task_Player.h"
+#include  "Task_Shot.h"
 
 namespace  Game
 {

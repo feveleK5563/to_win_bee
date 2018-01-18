@@ -3,8 +3,11 @@
 //-------------------------------------------------------------------
 //画像の分割
 //引数：開始位置XY(int, int), 画像の分割数WH(int, int)
-void ImageManager::ImageCreate(int startX, int startY, int width, int height, int imageWidth, int imageHeight)
+void ImageManager::ImageCreate(int startX, int startY, int width, int height,
+							   int Imwidth, int ImHeight)
 {
+	imageWidth = Imwidth;
+	imageHeight = ImHeight;
 	for (int y = startY; y < startY + height; ++y)
 	{
 		for (int x = startX; x < startX + width; ++x)
@@ -41,7 +44,7 @@ void ImageManager::ImageRender(const ML::Vec2& pos, const string& imageName, con
 	if (baseImageNum < 0)
 		return;
 
-	ML::Box2D draw = { -drawPos.x, -drawPos.y, 32, 32 };
+	ML::Box2D draw = { -drawPos.x, -drawPos.y, imageWidth, imageWidth };
 	draw.Offset(pos);
 	ML::Box2D src = *charaChip[defImageNum + baseImageNum + int(animCnt)];
 	if (animTurn)

@@ -121,6 +121,9 @@
     <ClCompile Include="ImageManager.cpp">
       <Filter>MyPG\Tasks\Game</Filter>
     </ClCompile>
+    <ClCompile Include="Task_Shot.cpp">
+      <Filter>MyPG\Tasks\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="myLib.h">
@@ -190,6 +193,9 @@
       <Filter>MyPG\Tasks\Game</Filter>
     </ClInclude>
     <ClInclude Include="ImageManager.h">
+      <Filter>MyPG\Tasks\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Task_Shot.h">
       <Filter>MyPG\Tasks\Game</Filter>
     </ClInclude>
   </ItemGroup>

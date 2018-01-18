@@ -10,12 +10,16 @@ public:
 	int					defImageNum;	//差分用画像番号
 	int					baseImageNum;	//基準画像番号
 	POINT				drawPos;		//描画の基準座標
+	int					imageWidth;		//画像の横幅
+	int					imageHeight;	//画像の縦幅
 	float				animCnt;		//アニメーションカウンタ
 	bool				animTurn;		//アニメーションが反転しているか否か
 
 	ImageManager() :
 		defImageNum(0),
 		baseImageNum(0),
+		imageWidth(0),
+		imageHeight(0),
 		animCnt(0),
 		animTurn(false)
 	{
