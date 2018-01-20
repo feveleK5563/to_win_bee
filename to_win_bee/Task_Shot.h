@@ -55,9 +55,11 @@ namespace  Shot
 			Enemy,
 		};
 		ShotUser shotUser;
+		ML::Vec2 beforePos;
 
 		void HitEnemy();
 		void HitPlayer();
+		bool BoxAndLineHit(const ML::Box2D&);
 		void ScreenOutShot();
 	};
 }

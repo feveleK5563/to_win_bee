@@ -35,7 +35,7 @@ namespace  Shot
 		//★データ初期化
 		render2D_Priority[1] = 0.8f;
 
-		hitBase = { -4, -4, 8, 8 };
+		beforePos = { 0, 0 };
 		shotUser = Player; //暫定
 
 		image.ImageCreate(0, 0, 2, 1, 8, 8);
@@ -62,6 +62,7 @@ namespace  Shot
 	//「更新」１フレーム毎に行う処理
 	void  Object::UpDate()
 	{
+		beforePos = pos;
 		switch (shotUser)
 		{
 		case Player:
@@ -93,7 +94,52 @@ namespace  Shot
 	//プレイヤーとの当たり判定
 	void Object::HitPlayer()
 	{
+		auto player = ge->GetTask_One_GN<Player::Object>("本編", "プレイヤー");
+		if (player == nullptr)
+			return;
 
+		if (BoxAndLineHit(player->hitBase.OffsetCopy(player->pos)))
+			player->Kill();
+	}
+
+	//-------------------------------------------------------------------
+	//線分と矩形の当たり判定
+	//弾の前座標と現座標との線分と矩形の辺4つとの通過判定を行う
+	bool Object::BoxAndLineHit(const ML::Box2D& plyHb)
+	{
+		POINT posA, posB;
+		for (int i = 0; i < 4; ++i)
+		{
+			switch (i)
+			{
+			case 0:	//左辺
+				posA = { plyHb.x, plyHb.y };
+				posB = { plyHb.x, plyHb.y + plyHb.h };
+				break;
+
+			case 1:	//右辺
+				posA = { plyHb.x + plyHb.w, plyHb.y };
+				posB = { plyHb.x + plyHb.w, plyHb.y + plyHb.h };
+				break;
+
+			case 2:	//上辺
+				posA = { plyHb.x, plyHb.y };
+				posB = { plyHb.x + plyHb.w, plyHb.y };
+				break;
+
+			case 3:	//下辺
+				posA = { plyHb.x, plyHb.y + plyHb.h };
+				posB = { plyHb.x + plyHb.w, plyHb.y + plyHb.h };
+				break;
+			}
+			int tA = (posA.x - posB.x) * (pos.y - posA.y) + (posA.x - posB.x) * (posA.y - pos.y);
+			int tB = (posB.x - posA.x) * (beforePos.y - posA.y) - (beforePos.x - posA.x) * (posB.y - posA.y);
+			int tC = (pos.x - beforePos.x) * (posA.y - pos.y) + (pos.x - beforePos.x) * (pos.y - posA.y);
+			int tD = (pos.x - beforePos.x) * (posB.y - pos.y) + (pos.x - beforePos.x) * (pos.y - posB.y);
+			if (tA * tB <= 0 && tC * tD <= 0)
+				return true;
+		}
+		return false;
 	}
 
 	//-------------------------------------------------------------------

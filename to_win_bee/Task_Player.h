@@ -51,8 +51,13 @@ namespace  Player
 		//BCharaに含まれないモノのみここに追加する
 
 		DI::VGamePad in;	//コントローラ
-
-		float baseSpeed;		//スピード
+		const float doubleShot[2] = { -7.f, 7.f };
+		const ML::Vec2 threeWayShot[3] = {
+			{ -7.f, -15.f },
+			{  0.f, -15.f },
+			{  7.f, -15.f },
+		};
+		float baseSpeed;	//基本スピード
 
 		float ControllKeyTable();	//移動系キー入力の処理
 		void  MovePlayer();			//プレイヤーの動作処理

@@ -35,8 +35,12 @@ namespace  Player
 		//★データ初期化
 		render2D_Priority[1] = 0.5f;
 
+		state = State1;	//State1 = 通常のショット
+						//State2 = 2発同時
+						//State3 = 3発同時
 		baseSpeed = 2.f;
-		pos = { float(ge->screen2DWidth) / 2, float(ge->screen2DHeight) / 2 };
+		pos = { float(ge->screen2DWidth) / 2, float(ge->screen2DHeight) / 3 * 2 };
+		hitBase = { -16, -16, 32, 32 };
 
 		image.ImageCreate(0, 0, 1, 1);
 		image.baseImageNum = 0;
@@ -64,8 +68,19 @@ namespace  Player
 	void  Object::UpDate()
 	{
 		in = DI::GPad_GetState("P1");
+
 		MovePlayer();
 		CreateShot();
+
+		if (in.B2.down)
+		{
+			if (state == State1)
+				state = State2;
+			else if (state == State2)
+				state = State3;
+			else if (state == State3)
+				state = State1;
+		}
 	}
 	//-------------------------------------------------------------------
 	//「２Ｄ描画」１フレーム毎に行う処理
@@ -121,12 +136,45 @@ namespace  Player
 	{
 		if (in.B1.on)
 		{
-			if (!((cntTime++) % 9))
+			if (!((cntTime++) % 10))
 			{
-				auto shot = Shot::Object::Create(true);
-				shot->pos = pos;
-				shot->pos.y -= 16.f;
-				shot->speed = { 0.f, -12.f };
+				switch (state)
+				{
+				case BChara::State1: //通常ショット
+				{
+					auto shot = Shot::Object::Create(true);
+					shot->pos = pos;
+					shot->pos.y -= 8.f;
+					shot->speed = { 0.f, -15.f };
+				}
+					break;
+
+				case BChara::State2: //2発同時ショット
+				{
+					for (int i = 0; i < 2; ++i)
+					{
+						auto shot = Shot::Object::Create(true);
+						shot->pos = pos;
+						shot->pos.y -= 8.f;
+						shot->pos.x += doubleShot[i];
+						shot->speed = { 0.f, -15.f };
+						shot->image.baseImageNum = 1;
+					}
+				}
+					break;
+
+				case BChara::State3: //3発同時ショット
+				{
+					for (int i = 0; i < 3; ++i)
+					{
+						auto shot = Shot::Object::Create(true);
+						shot->pos = pos;
+						shot->pos.y -= 8.f;
+						shot->speed = threeWayShot[i];
+					}
+				}
+					break;
+				}
 			}
 		}
 		else
