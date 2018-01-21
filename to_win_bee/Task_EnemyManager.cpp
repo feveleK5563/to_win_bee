@@ -1,16 +1,12 @@
 //-------------------------------------------------------------------
-// ゲーム本編
+//
 //-------------------------------------------------------------------
 #include  "MyPG.h"
-#include  "Task_Game.h"
-#include  "Task_Title.h"
-
-#include  "Task_GameBG.h"
-#include  "Task_Player.h"
 #include  "Task_EnemyManager.h"
-#include  "Task_Shot.h"
 
-namespace  Game
+#include  "Task_Enemy_Itigo.h"
+
+namespace  EnemyManager
 {
 	Resource::WP  Resource::instance;
 	//-------------------------------------------------------------------
@@ -35,13 +31,9 @@ namespace  Game
 		this->res = Resource::Create();
 
 		//★データ初期化
-		//背景タスク
-		auto bg = GameBG::Object::Create(true);
-		//プレイヤータスク
-		auto pl = Player::Object::Create(true);
-		//敵タスク
-		auto en = EnemyManager::Object::Create(true);
-
+		monsterNum = 0;
+		cntTime = 0;
+		
 		//★タスクの生成
 
 		return  true;
@@ -51,11 +43,10 @@ namespace  Game
 	bool  Object::Finalize()
 	{
 		//★データ＆タスク解放
-		ge->KillAll_G("本編");
+		ge->KillAll_G("敵");
 
 		if (!ge->QuitFlag() && this->nextTaskCreate) {
 			//★引き継ぎタスクの生成
-			auto nextTask = Title::Object::Create(true);
 		}
 
 		return  true;
@@ -64,16 +55,45 @@ namespace  Game
 	//「更新」１フレーム毎に行う処理
 	void  Object::UpDate()
 	{
-		auto in = DI::GPad_GetState("P1");
-		if (in.ST.down)
+		++cntTime;
+		if (!(cntTime % 120))
 		{
-			Kill();
+			AppMonster();
 		}
 	}
 	//-------------------------------------------------------------------
 	//「２Ｄ描画」１フレーム毎に行う処理
 	void  Object::Render2D_AF()
 	{
+	}
+
+	//-------------------------------------------------------------------
+	//モンスターの出現
+	void Object::AppMonster()
+	{
+		switch (rand() % 1)
+		{
+		case 0: //イティゴ
+			AppMonster_Itigo();
+			break;
+		}
+	}
+
+	//-------------------------------------------------------------------
+	//イティゴ
+	void Object::AppMonster_Itigo()
+	{
+		ML::Vec2 basePos = { float(16 + rand() % int(ge->screen2DWidth - 16)), -32.f };
+		ML::Vec2 baseSpd = { 1.f, 2.f };
+		if (basePos.x > float(ge->screen2DWidth / 2))
+			baseSpd.x *= -1.f;
+
+		for (int i = 4; i >= 0; --i)
+		{
+			auto en = Itigo::Object::Create(true);
+			en->pos = { basePos.x - (baseSpd.x * 15.f) * i, basePos.y - (baseSpd.y * 15.f) * i };
+			en->speed = { baseSpd.x, baseSpd.y };
+		}
 	}
 
 	//★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★

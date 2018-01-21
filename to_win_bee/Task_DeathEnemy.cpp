@@ -1,28 +1,25 @@
 //-------------------------------------------------------------------
-// ゲーム本編
+//
 //-------------------------------------------------------------------
 #include  "MyPG.h"
-#include  "Task_Game.h"
-#include  "Task_Title.h"
+#include  "Task_DeathEnemy.h"
 
-#include  "Task_GameBG.h"
-#include  "Task_Player.h"
-#include  "Task_EnemyManager.h"
-#include  "Task_Shot.h"
-
-namespace  Game
+namespace  DeathEnemy
 {
 	Resource::WP  Resource::instance;
 	//-------------------------------------------------------------------
 	//リソースの初期化
 	bool  Resource::Initialize()
 	{
+		imageName = "DeathEnemy";
+		DG::Image_Create(imageName, "./data/image/DeathEnemy.png");
 		return true;
 	}
 	//-------------------------------------------------------------------
 	//リソースの解放
 	bool  Resource::Finalize()
 	{
+		DG::Image_Erase(imageName);
 		return true;
 	}
 	//-------------------------------------------------------------------
@@ -35,12 +32,8 @@ namespace  Game
 		this->res = Resource::Create();
 
 		//★データ初期化
-		//背景タスク
-		auto bg = GameBG::Object::Create(true);
-		//プレイヤータスク
-		auto pl = Player::Object::Create(true);
-		//敵タスク
-		auto en = EnemyManager::Object::Create(true);
+		image.ImageCreate(0, 0, 2, 1);
+		image.drawPos = { 16, 16 };
 
 		//★タスクの生成
 
@@ -51,11 +44,10 @@ namespace  Game
 	bool  Object::Finalize()
 	{
 		//★データ＆タスク解放
-		ge->KillAll_G("本編");
+		image.ImageErase();
 
 		if (!ge->QuitFlag() && this->nextTaskCreate) {
 			//★引き継ぎタスクの生成
-			auto nextTask = Title::Object::Create(true);
 		}
 
 		return  true;
@@ -64,16 +56,21 @@ namespace  Game
 	//「更新」１フレーム毎に行う処理
 	void  Object::UpDate()
 	{
-		auto in = DI::GPad_GetState("P1");
-		if (in.ST.down)
+		if (cntTime > 15)
 		{
 			Kill();
+		}
+		else
+		{
+			image.animCnt += animTable[cntTime / 5];
+			++cntTime;
 		}
 	}
 	//-------------------------------------------------------------------
 	//「２Ｄ描画」１フレーム毎に行う処理
 	void  Object::Render2D_AF()
 	{
+		image.ImageRender(pos, res->imageName);
 	}
 
 	//★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★

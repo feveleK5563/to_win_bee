@@ -5,11 +5,11 @@
 //-------------------------------------------------------------------
 #include "BChara.h"
 
-namespace  Shot
+namespace  DeathEnemy
 {
 	//タスクに割り当てるグループ名と固有名
-	const  string  defGroupName("本編");	//グループ名
-	const  string  defName("弾");		//タスク名
+	const  string  defGroupName("敵");	//グループ名
+	const  string  defName("死亡爆発");		//タスク名
 	//-------------------------------------------------------------------
 	class  Resource
 	{
@@ -49,15 +49,6 @@ namespace  Shot
 	//変更可◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇
 		//追加したい変数・メソッドはここに追加する
 		//BCharaに含まれないモノのみここに追加する
-		enum ShotUser
-		{
-			Player,
-			Enemy,
-		};
-		ShotUser shotUser;
-		ML::Vec2 beforePos;
-
-		void HitEnemy();
-		void HitPlayer();
+		const float animTable[3] = { 0.f, 1.f, 0.f};
 	};
 }

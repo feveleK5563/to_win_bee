@@ -124,6 +124,15 @@
     <ClCompile Include="Task_Shot.cpp">
       <Filter>MyPG\Tasks\Game</Filter>
     </ClCompile>
+    <ClCompile Include="Task_Enemy_Itigo.cpp">
+      <Filter>MyPG\Tasks\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Task_EnemyManager.cpp">
+      <Filter>MyPG\Tasks\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Task_DeathEnemy.cpp">
+      <Filter>MyPG\Tasks\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="myLib.h">
@@ -196,6 +205,15 @@
       <Filter>MyPG\Tasks\Game</Filter>
     </ClInclude>
     <ClInclude Include="Task_Shot.h">
+      <Filter>MyPG\Tasks\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Task_Enemy_Itigo.h">
+      <Filter>MyPG\Tasks\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Task_EnemyManager.h">
+      <Filter>MyPG\Tasks\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Task_DeathEnemy.h">
       <Filter>MyPG\Tasks\Game</Filter>
     </ClInclude>
   </ItemGroup>

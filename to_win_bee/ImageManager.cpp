@@ -46,7 +46,7 @@ void ImageManager::ImageRender(const ML::Vec2& pos, const string& imageName, con
 
 	ML::Box2D draw = { -drawPos.x, -drawPos.y, imageWidth, imageWidth };
 	draw.Offset(pos);
-	ML::Box2D src = *charaChip[defImageNum + baseImageNum + int(animCnt)];
+	ML::Box2D src = *charaChip[defImageNum + baseImageNum + (int(animCnt) % charaChip.size())];
 	if (animTurn)
 	{
 		src.x += src.w;

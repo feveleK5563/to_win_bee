@@ -1,5 +1,5 @@
 //-------------------------------------------------------------------
-//
+//プレイヤー
 //-------------------------------------------------------------------
 #include  "MyPG.h"
 #include  "Task_Player.h"
@@ -38,7 +38,7 @@ namespace  Player
 		state = State1;	//State1 = 通常のショット
 						//State2 = 2発同時
 						//State3 = 3発同時
-		baseSpeed = 2.f;
+		baseSpeed = 3.f;
 		pos = { float(ge->screen2DWidth) / 2, float(ge->screen2DHeight) / 3 * 2 };
 		hitBase = { -16, -16, 32, 32 };
 
@@ -72,6 +72,7 @@ namespace  Player
 		MovePlayer();
 		CreateShot();
 
+		//(仮)弾の種類変更
 		if (in.B2.down)
 		{
 			if (state == State1)
