@@ -67,20 +67,23 @@ namespace  Player
 	//「更新」１フレーム毎に行う処理
 	void  Object::UpDate()
 	{
-		in = DI::GPad_GetState("P1");
-
-		MovePlayer();
-		CreateShot();
-
-		//(仮)弾の種類変更
-		if (in.B2.down)
+		if (state != Death)
 		{
-			if (state == State1)
-				state = State2;
-			else if (state == State2)
-				state = State3;
-			else if (state == State3)
-				state = State1;
+			in = DI::GPad_GetState("P1");
+
+			MovePlayer();
+			CreateShot();
+
+			//(仮)弾の種類変更
+			if (in.B2.down)
+			{
+				if (state == State1)
+					state = State2;
+				else if (state == State2)
+					state = State3;
+				else if (state == State3)
+					state = State1;
+			}
 		}
 	}
 	//-------------------------------------------------------------------

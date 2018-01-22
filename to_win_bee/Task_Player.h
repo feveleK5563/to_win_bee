@@ -51,7 +51,7 @@ namespace  Player
 		//BChara‚ÉŠÜ‚Ü‚ê‚È‚¢ƒ‚ƒm‚Ì‚İ‚±‚±‚É’Ç‰Á‚·‚é
 
 		DI::VGamePad in;	//ƒRƒ“ƒgƒ[ƒ‰
-		const float doubleShot[2] = { -7.f, 7.f };
+		const float doubleShot[2] = { -4.f, 4.f };
 		const ML::Vec2 threeWayShot[3] = {
 			{ -7.f, -15.f },
 			{  0.f, -15.f },

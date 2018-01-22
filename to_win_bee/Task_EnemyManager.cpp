@@ -91,7 +91,8 @@ namespace  EnemyManager
 		for (int i = 4; i >= 0; --i)
 		{
 			auto en = Itigo::Object::Create(true);
-			en->pos = { basePos.x - (baseSpd.x * 15.f) * i, basePos.y - (baseSpd.y * 15.f) * i };
+			en->pos = { basePos.x - (baseSpd.x * 26.f) * i,
+						basePos.y - (baseSpd.y * 14.f) * i };
 			en->speed = { baseSpd.x, baseSpd.y };
 		}
 	}

@@ -33,6 +33,9 @@ namespace  Title
 		this->res = Resource::Create();
 
 		//★データ初期化
+		cntTime = 0;
+		diflectionWidth = 100.f;
+		image.ImageCreate(0, 0, 1, 60, 220, 1);
 		
 		//★タスクの生成
 
@@ -43,6 +46,7 @@ namespace  Title
 	bool  Object::Finalize()
 	{
 		//★データ＆タスク解放
+		image.ImageErase();
 		ge->KillAll_G("タイトル");
 
 		if (!ge->QuitFlag() && this->nextTaskCreate) {
@@ -57,18 +61,37 @@ namespace  Title
 	void  Object::UpDate()
 	{
 		auto in = DI::GPad_GetState("P1");
-		if (in.ST.down)
+
+		if (diflectionWidth > 0)
 		{
-			Kill();
+			diflectionWidth -= 0.8f;
+			cntTime += 8;
+		}
+		else
+		{
+			diflectionWidth = 0.f;
+
+			if (in.ST.down)
+			{
+				Kill();
+			}
 		}
 	}
 	//-------------------------------------------------------------------
 	//「２Ｄ描画」１フレーム毎に行う処理
 	void  Object::Render2D_AF()
-	{
-		ML::Box2D draw(int(ge->screen2DWidth - 220) / 2, int(ge->screen2DHeight - 60) / 3, 220, 60);
-		ML::Box2D src(0, 0, 220, 60);
-		DG::Image_Draw(res->imageName, draw, src);
+	{	
+		image.animCnt = 0;
+		int rNum = image.RectangleNum();
+		for (int i = 0; i < rNum; ++i, ++image.animCnt)
+		{
+			ML::Vec2 pos = { float(ge->screen2DWidth - 220) / 2.f, (float(ge->screen2DHeight - 60) / 3.f) + i };
+			if (i % 2)
+				pos.x += cos(ML::ToRadian(float(cntTime))) * diflectionWidth;
+			else
+				pos.x -= cos(ML::ToRadian(float(cntTime))) * diflectionWidth;
+			image.ImageRender(pos, res->imageName);
+		}
 	}
 
 	//★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★

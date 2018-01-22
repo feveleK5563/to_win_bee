@@ -4,6 +4,7 @@
 // タイトル画面
 //-------------------------------------------------------------------
 #include "GameEngine_Ver3_7.h"
+#include "ImageManager.h"
 
 namespace  Title
 {
@@ -47,5 +48,8 @@ namespace  Title
 	//変更可◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇
 	public:
 		//追加したい変数・メソッドはここに追加する
+		int cntTime;
+		float diflectionWidth;
+		ImageManager image;
 	};
 }

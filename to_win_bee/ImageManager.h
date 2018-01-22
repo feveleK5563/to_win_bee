@@ -38,13 +38,17 @@ public:
 	void ImageCreate(int startX, int startY, int width, int height, int imageWidth = 32, int imageHeight = 32);
 
 	//------------------------------------
-	//画像の分割(1つだけ)
+	//画像矩形の作成(1つだけ)
 	//引数：開始位置XY(int, int), 終了位置(int, int)
 	void ImageOneCreate(int startX, int startY, int endX, int endY);
 
 	//------------------------------------
 	//画像の分割解除
 	void ImageErase();
+
+	//------------------------------------
+	//作成した矩形の数を返す
+	int RectangleNum();
 
 	//------------------------------------
 	//画像の描画

@@ -47,6 +47,12 @@
     <Filter Include="MyPG\Tasks\Game">
       <UniqueIdentifier>{604b49e1-b1ab-40cb-9b81-63ecfbae15a2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MyPG\Tasks\Etc">
+      <UniqueIdentifier>{5026e2e3-6768-409e-8fcd-851b3cc97b6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MyPG\Tasks\Game\Enemy">
+      <UniqueIdentifier>{c8374a2f-f940-4fc5-9312-fb7ebe901857}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="myLib.cpp">
@@ -118,20 +124,23 @@
     <ClCompile Include="BChara.cpp">
       <Filter>MyPG\Tasks\Game</Filter>
     </ClCompile>
-    <ClCompile Include="ImageManager.cpp">
-      <Filter>MyPG\Tasks\Game</Filter>
-    </ClCompile>
     <ClCompile Include="Task_Shot.cpp">
-      <Filter>MyPG\Tasks\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Task_Enemy_Itigo.cpp">
-      <Filter>MyPG\Tasks\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Task_EnemyManager.cpp">
       <Filter>MyPG\Tasks\Game</Filter>
     </ClCompile>
     <ClCompile Include="Task_DeathEnemy.cpp">
       <Filter>MyPG\Tasks\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="EChara.cpp">
+      <Filter>MyPG\Tasks\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageManager.cpp">
+      <Filter>MyPG\Tasks\Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="Task_Enemy_Itigo.cpp">
+      <Filter>MyPG\Tasks\Game\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Task_EnemyManager.cpp">
+      <Filter>MyPG\Tasks\Game\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -201,20 +210,23 @@
     <ClInclude Include="BChara.h">
       <Filter>MyPG\Tasks\Game</Filter>
     </ClInclude>
-    <ClInclude Include="ImageManager.h">
-      <Filter>MyPG\Tasks\Game</Filter>
-    </ClInclude>
     <ClInclude Include="Task_Shot.h">
-      <Filter>MyPG\Tasks\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Task_Enemy_Itigo.h">
-      <Filter>MyPG\Tasks\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Task_EnemyManager.h">
       <Filter>MyPG\Tasks\Game</Filter>
     </ClInclude>
     <ClInclude Include="Task_DeathEnemy.h">
       <Filter>MyPG\Tasks\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="EChara.h">
+      <Filter>MyPG\Tasks\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageManager.h">
+      <Filter>MyPG\Tasks\Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="Task_Enemy_Itigo.h">
+      <Filter>MyPG\Tasks\Game\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Task_EnemyManager.h">
+      <Filter>MyPG\Tasks\Game\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

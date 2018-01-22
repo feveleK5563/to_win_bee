@@ -74,6 +74,7 @@ namespace  Itigo
 			break;
 		}
 		ScreenOutObj();
+		HitPlayer();
 
 		image.animCnt += 0.15f;
 	}

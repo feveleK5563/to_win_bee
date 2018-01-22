@@ -56,13 +56,13 @@ namespace  DeathEnemy
 	//「更新」１フレーム毎に行う処理
 	void  Object::UpDate()
 	{
-		if (cntTime > 15)
+		if (cntTime > 10)
 		{
 			Kill();
 		}
 		else
 		{
-			image.animCnt += animTable[cntTime / 5];
+			image.animCnt = float((cntTime / 7) % 2);
 			++cntTime;
 		}
 	}

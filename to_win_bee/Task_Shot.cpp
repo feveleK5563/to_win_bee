@@ -91,7 +91,7 @@ namespace  Shot
 	void Object::HitEnemy()
 	{
 		{	//ƒCƒeƒBƒS
-			auto enemy = ge->GetTask_Group_G<Itigo::Object>("“G");
+			auto enemy = ge->GetTask_Group_GN<Itigo::Object>("“G", "ƒCƒeƒBƒS");
 			for (auto it = enemy->begin(); it != enemy->end(); ++it)
 			{
 				if (hitBase.OffsetCopy(pos).Hit((*it)->hitBase.OffsetCopy((*it)->pos)))

@@ -3,15 +3,14 @@
 //-------------------------------------------------------------------
 #include "BChara.h"
 #include "MyPG.h"
-#include "Task_Shot.h"
 
 //-------------------------------------------------------------------
 //画面外に出たら消す処理
-//敵は画面四方100ドット分の猶予を持って出現するため、
-//上下左右に100ドット足した値を基準とする
+//敵は画面上200ドット分の猶予を持って出現するため、
+//左右と下、及び上辺に200ドット足した値を基準とする
 void BChara::ScreenOutObj()
 {
-	if (pos.x < -16.f - 200.f || float(ge->screen2DWidth + 200) + 16.f < pos.x ||
-		pos.y < -16.f - 200.f || float(ge->screen2DHeight + 200) + 16.f < pos.y)
+	if (pos.x < -16.f - 100.f || float(ge->screen2DWidth + 100.f) + 16.f < pos.x ||
+		pos.y < -16.f - 200.f || float(ge->screen2DHeight) + 16.f < pos.y)
 		Kill();
 }

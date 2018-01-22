@@ -18,7 +18,7 @@ void ImageManager::ImageCreate(int startX, int startY, int width, int height,
 }
 
 //------------------------------------
-//画像の分割(1つだけ)
+//画像矩形の作成(1つだけ)
 //引数：開始位置XY(int, int), 終了位置(int, int)
 void ImageManager::ImageOneCreate(int startX, int startY, int endX, int endY)
 {
@@ -37,6 +37,13 @@ void ImageManager::ImageErase()
 }
 
 //-------------------------------------------------------------------
+//作成した矩形の数を返す
+int ImageManager::RectangleNum()
+{
+	return charaChip.size();
+}
+
+//-------------------------------------------------------------------
 //画像の描画
 //引数：表示座標(ML::Vec2), 画像名(string), 表示色(ML::Color デフォルトで(1, 1, 1, 1))
 void ImageManager::ImageRender(const ML::Vec2& pos, const string& imageName, const ML::Color& color)
@@ -44,7 +51,7 @@ void ImageManager::ImageRender(const ML::Vec2& pos, const string& imageName, con
 	if (baseImageNum < 0)
 		return;
 
-	ML::Box2D draw = { -drawPos.x, -drawPos.y, imageWidth, imageWidth };
+	ML::Box2D draw = { -drawPos.x, -drawPos.y, imageWidth, imageHeight };
 	draw.Offset(pos);
 	ML::Box2D src = *charaChip[defImageNum + baseImageNum + (int(animCnt) % charaChip.size())];
 	if (animTurn)

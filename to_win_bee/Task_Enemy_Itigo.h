@@ -3,7 +3,7 @@
 //-------------------------------------------------------------------
 //
 //-------------------------------------------------------------------
-#include "BChara.h"
+#include "EChara.h"
 
 namespace  Itigo
 {
@@ -27,7 +27,7 @@ namespace  Itigo
 		string imageName;
 	};
 	//-------------------------------------------------------------------
-	class  Object : public  BChara
+	class  Object : public  EChara
 	{
 	public:
 		virtual  ~Object();

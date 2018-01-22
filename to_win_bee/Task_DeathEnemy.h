@@ -49,6 +49,5 @@ namespace  DeathEnemy
 	//変更可◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇
 		//追加したい変数・メソッドはここに追加する
 		//BCharaに含まれないモノのみここに追加する
-		const float animTable[3] = { 0.f, 1.f, 0.f};
 	};
 }
