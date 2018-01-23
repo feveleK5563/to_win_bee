@@ -69,7 +69,7 @@ namespace  Title
 
 		if (diflectionWidth > 0)
 		{
-			diflectionWidth -= 0.8f;
+			diflectionWidth -= 1.f;
 			cntTime += 8;
 
 			if (in.ST.down)
