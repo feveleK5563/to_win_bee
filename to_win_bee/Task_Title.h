@@ -24,7 +24,7 @@ namespace  Title
 		static   WP  instance;
 		static  Resource::SP  Create();
 		//‹¤—L‚·‚é•Ï”‚Í‚±‚±‚É’Ç‰Á‚·‚é
-		string imageName;
+		string imageName[2];
 	};
 	//-------------------------------------------------------------------
 	class  Object : public  BTask
@@ -51,5 +51,6 @@ namespace  Title
 		int cntTime;
 		float diflectionWidth;
 		ImageManager image;
+		bool moveOk;
 	};
 }

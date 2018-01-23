@@ -12,15 +12,18 @@ namespace  Title
 	//リソースの初期化
 	bool  Resource::Initialize()
 	{
-		imageName = "TitleImg";
-		DG::Image_Create(imageName, "./data/image/Title.png");
+		imageName[0] = "TitleImg";
+		DG::Image_Create(imageName[0], "./data/image/Title.png");
+		imageName[1] = "CompanyImg";
+		DG::Image_Create(imageName[1], "./data/image/Konmai.png");
 		return true;
 	}
 	//-------------------------------------------------------------------
 	//リソースの解放
 	bool  Resource::Finalize()
 	{
-		DG::Image_Erase(imageName);
+		for (int i = 0; i < 2; ++i)
+			DG::Image_Erase(imageName[i]);
 		return true;
 	}
 	//-------------------------------------------------------------------
@@ -35,8 +38,10 @@ namespace  Title
 		//★データ初期化
 		cntTime = 0;
 		diflectionWidth = 100.f;
+		moveOk = false;
+
 		image.ImageCreate(0, 0, 1, 60, 220, 1);
-		
+		image.drawPos = { 110, 0 };
 		//★タスクの生成
 
 		return  true;
@@ -66,9 +71,15 @@ namespace  Title
 		{
 			diflectionWidth -= 0.8f;
 			cntTime += 8;
+
+			if (in.ST.down)
+			{
+				diflectionWidth = 0.f;
+			}
 		}
 		else
 		{
+			moveOk = true;
 			diflectionWidth = 0.f;
 
 			if (in.ST.down)
@@ -81,16 +92,23 @@ namespace  Title
 	//「２Ｄ描画」１フレーム毎に行う処理
 	void  Object::Render2D_AF()
 	{	
-		image.animCnt = 0;
-		int rNum = image.RectangleNum();
-		for (int i = 0; i < rNum; ++i, ++image.animCnt)
+		int rNum = image.RectangleSize();
+		for (int i = 0; i < rNum; ++i, ++image.baseImageNum)
 		{
-			ML::Vec2 pos = { float(ge->screen2DWidth - 220) / 2.f, (float(ge->screen2DHeight - 60) / 3.f) + i };
+			ML::Vec2 pos = { float(ge->screen2DWidth) / 2.f, (float(ge->screen2DHeight - 60) / 3.f) + i };
 			if (i % 2)
-				pos.x += cos(ML::ToRadian(float(cntTime))) * diflectionWidth;
+				pos.x += cos(ML::ToRadian(float(cntTime + (i * 5)))) * diflectionWidth;
 			else
-				pos.x -= cos(ML::ToRadian(float(cntTime))) * diflectionWidth;
-			image.ImageRender(pos, res->imageName);
+				pos.x -= cos(ML::ToRadian(float(cntTime + (i * 5)))) * diflectionWidth;
+			image.ImageRender(pos, res->imageName[0]);
+		}
+		if (moveOk)
+		{
+			ML::Vec2 pos = { float(ge->screen2DWidth) / 2.f, 180.f};
+			ML::Box2D draw(-53, 0, 106, 10);
+			draw.Offset(pos);
+			ML::Box2D src(0, 0, 106, 10);
+			DG::Image_Draw(res->imageName[1], draw, src);
 		}
 	}
 

@@ -38,7 +38,7 @@ void ImageManager::ImageErase()
 
 //-------------------------------------------------------------------
 //ì¬‚µ‚½‹éŒ`‚Ì”‚ğ•Ô‚·
-int ImageManager::RectangleNum()
+int ImageManager::RectangleSize()
 {
 	return charaChip.size();
 }
@@ -53,7 +53,7 @@ void ImageManager::ImageRender(const ML::Vec2& pos, const string& imageName, con
 
 	ML::Box2D draw = { -drawPos.x, -drawPos.y, imageWidth, imageHeight };
 	draw.Offset(pos);
-	ML::Box2D src = *charaChip[defImageNum + baseImageNum + (int(animCnt) % charaChip.size())];
+	ML::Box2D src = *charaChip[(defImageNum + baseImageNum + int(animCnt)) % charaChip.size()];
 	if (animTurn)
 	{
 		src.x += src.w;
