@@ -2,8 +2,8 @@
 //
 //-------------------------------------------------------------------
 #include  "MyPG.h"
+#include  "Task_Cloud.h"
 #include  "Task_EnemyManager.h"
-
 #include  "Task_Enemy_Itigo.h"
 
 namespace  EnemyManager
@@ -31,6 +31,8 @@ namespace  EnemyManager
 		this->res = Resource::Create();
 
 		//★データ初期化
+		rnd.seed(0);
+
 		monsterNum = 0;
 		cntTime = 0;
 		
@@ -56,9 +58,13 @@ namespace  EnemyManager
 	void  Object::UpDate()
 	{
 		++cntTime;
-		if (!(cntTime % 120))
+		if (!(cntTime % 180))
 		{
 			AppMonster();
+		}
+		if (!(cntTime % 210))
+		{
+			AppCloud();
 		}
 	}
 	//-------------------------------------------------------------------
@@ -68,10 +74,22 @@ namespace  EnemyManager
 	}
 
 	//-------------------------------------------------------------------
+	//雲の出現
+	void Object::AppCloud()
+	{
+		if (rnd() % 2)
+			return;
+
+		auto cloud = Cloud::Object::Create(true);
+		cloud->pos = { float(16 + rnd() % int(ge->screen2DWidth - 16)), -32.f};
+		cloud->speed = { 0.f, 1.f };
+	}
+
+	//-------------------------------------------------------------------
 	//モンスターの出現
 	void Object::AppMonster()
 	{
-		switch (rand() % 1)
+		switch (rnd() % 1)
 		{
 		case 0: //イティゴ
 			AppMonster_Itigo();
@@ -83,7 +101,7 @@ namespace  EnemyManager
 	//イティゴ
 	void Object::AppMonster_Itigo()
 	{
-		ML::Vec2 basePos = { float(16 + rand() % int(ge->screen2DWidth - 16)), -32.f };
+		ML::Vec2 basePos = { float(16 + rnd() % int(ge->screen2DWidth - 16)), -32.f };
 		ML::Vec2 baseSpd = { 1.f, 2.f };
 		if (basePos.x > float(ge->screen2DWidth / 2))
 			baseSpd.x *= -1.f;

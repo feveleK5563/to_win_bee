@@ -99,6 +99,7 @@
     <ClCompile Include="ImageManager.cpp" />
     <ClCompile Include="myLib.cpp" />
     <ClCompile Include="MyPG.cpp" />
+    <ClCompile Include="Task_Cloud.cpp" />
     <ClCompile Include="Task_DeathEnemy.cpp" />
     <ClCompile Include="Task_EnemyManager.cpp" />
     <ClCompile Include="Task_Enemy_Itigo.cpp" />
@@ -130,6 +131,7 @@
     <ClInclude Include="ImageManager.h" />
     <ClInclude Include="myLib.h" />
     <ClInclude Include="MyPG.h" />
+    <ClInclude Include="Task_Cloud.h" />
     <ClInclude Include="Task_DeathEnemy.h" />
     <ClInclude Include="Task_EnemyManager.h" />
     <ClInclude Include="Task_Enemy_Itigo.h" />

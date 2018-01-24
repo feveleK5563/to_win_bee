@@ -18,7 +18,8 @@ void EChara::HitPlayer()
 
 	if (eh.Hit(ph))
 	{
-		player->state = Death;
-		player->cntTime = 0;
+		//player->state = Death;
+		//player->cntTime = 0;
+		player->Kill(); //‰¼
 	}
 }

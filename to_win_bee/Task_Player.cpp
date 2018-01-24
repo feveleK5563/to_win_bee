@@ -40,7 +40,7 @@ namespace  Player
 						//State3 = 3”­“¯Žž
 		baseSpeed = 3.f;
 		pos = { float(ge->screen2DWidth) / 2, float(ge->screen2DHeight) / 3 * 2 };
-		hitBase = { -16, -16, 32, 32 };
+		hitBase = { -8, -8, 16, 16 };
 
 		image.ImageCreate(0, 0, 1, 1);
 		image.baseImageNum = 0;

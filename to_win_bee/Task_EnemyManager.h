@@ -4,6 +4,7 @@
 //
 //-------------------------------------------------------------------
 #include "GameEngine_Ver3_7.h"
+#include <random>
 
 namespace  EnemyManager
 {
@@ -46,10 +47,12 @@ namespace  EnemyManager
 	//変更可◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇
 	public:
 		//追加したい変数・メソッドはここに追加する
+		std::mt19937	rnd;
 		const int		MaxMonsterNum = 5;
 		int				monsterNum;
 		unsigned int	cntTime;
 
+		void AppCloud();
 		void AppMonster();
 		void AppMonster_Itigo();
 	};

@@ -4,6 +4,7 @@
 #include  "MyPG.h"
 #include  "Task_Shot.h"
 #include  "Task_Player.h"
+#include  "Task_Cloud.h"
 #include  "Task_Enemy_Itigo.h"
 #include  "Task_DeathEnemy.h"
 
@@ -38,7 +39,7 @@ namespace  Shot
 		render2D_Priority[1] = 0.7f;
 
 		beforePos = { 0, 0 };
-		hitBase = { -16, -16, 32, 32 };
+		hitBase = { -8, -8, 16, 16 };
 		shotUser = Player; //(‚±‚ÌŒã•Ê‚Ì’l‚É•ÏX‚³‚ê‚½‚è‚³‚ê‚È‚©‚Á‚½‚è)
 
 		image.ImageCreate(0, 0, 2, 1, 8, 8);
@@ -70,6 +71,7 @@ namespace  Shot
 		{
 		case Player:
 			HitEnemy();
+			HitCloudOrBell();
 			break;
 
 		case Enemy:
@@ -99,6 +101,27 @@ namespace  Shot
 					auto de = DeathEnemy::Object::Create(true);
 					de->pos = (*it)->pos;
 					(*it)->Kill();
+					Kill();
+					return;
+				}
+			}
+		}
+	}
+
+	//-------------------------------------------------------------------
+	//‰_Aƒxƒ‹‚Æ‚Ì“–‚½‚è”»’è
+	void Object::HitCloudOrBell()
+	{
+		{	//‰_
+			auto enemy = ge->GetTask_Group_GN<Cloud::Object>("“G", "‰_");
+			for (auto it = enemy->begin(); it != enemy->end(); ++it)
+			{
+				if (!(*it)->createdBell)
+					continue;
+
+				if (hitBase.OffsetCopy(pos).Hit((*it)->hitBase.OffsetCopy((*it)->pos)))
+				{
+					(*it)->createdBell = true;
 					Kill();
 					return;
 				}

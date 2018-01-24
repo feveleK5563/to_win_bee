@@ -2,18 +2,17 @@
 //
 //-------------------------------------------------------------------
 #include  "MyPG.h"
-#include  "Task_Enemy_Itigo.h"
-#include  "Task_Player.h"
+#include  "Task_Cloud.h"
 
-namespace  Itigo
+namespace  Cloud
 {
 	Resource::WP  Resource::instance;
 	//-------------------------------------------------------------------
 	//リソースの初期化
 	bool  Resource::Initialize()
 	{
-		imageName = "Itigo";
-		DG::Image_Create(imageName, "./data/image/Enemy_Itigo.png");
+		imageName = "Cloud";
+		DG::Image_Create(imageName, "./data/image/Cloud.png");
 		return true;
 	}
 	//-------------------------------------------------------------------
@@ -33,13 +32,13 @@ namespace  Itigo
 		this->res = Resource::Create();
 
 		//★データ初期化
-		render2D_Priority[1] = 0.8f;
+		render2D_Priority[1] = 0.9f;
 
-		state = State1;
-		hitBase = { -16, -16, 32, 32 };
+		createdBell = false;
+		hitBase = { -32, -16, 64, 32 };
 
-		image.ImageCreate(0, 0, 2, 1);
-		image.drawPos = { 16, 16 };
+		image.ImageCreate(0, 0, 1, 2, 64, 32);
+		image.drawPos = { 32, 16 };
 		
 		//★タスクの生成
 
@@ -63,53 +62,15 @@ namespace  Itigo
 	void  Object::UpDate()
 	{
 		pos += speed;
-		switch (state)
-		{
-		case State1:
-			SlantingMove();
-			break;
-
-		case State2:
-			TurnAround();
-			break;
-		}
+		++cntTime;
+		image.animCnt = cntTime / 30.f;
 		ScreenOutObj();
-		HitPlayer();
-
-		image.animCnt += 0.15f;
 	}
 	//-------------------------------------------------------------------
 	//「２Ｄ描画」１フレーム毎に行う処理
 	void  Object::Render2D_AF()
 	{
 		image.ImageRender(pos, res->imageName);
-	}
-
-	//-------------------------------------------------------------------
-	//斜め移動(通常動作)
-	void Object::SlantingMove()
-	{
-		if (auto player = ge->GetTask_One_GN<Player::Object>("本編", "プレイヤー"))
-		{
-			if (player->pos.x - 2 <= pos.x && pos.x <= player->pos.x + 2)
-			{
-				cntTime = 0;
-				state = State2;
-				if (speed.x > 0)
-					speed = { -2.3f, 1.5f };
-				else
-					speed = {  2.3f, 1.5f };
-			}
-		}
-	}
-
-	//-------------------------------------------------------------------
-	//画面外にファーッと逃げる
-	void Object::TurnAround()
-	{
-		++cntTime;
-		if (cntTime == 50)
-			speed.y *= -1.5f;
 	}
 
 	//★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
