@@ -127,9 +127,6 @@
     <ClCompile Include="Task_Shot.cpp">
       <Filter>MyPG\Tasks\Game</Filter>
     </ClCompile>
-    <ClCompile Include="EChara.cpp">
-      <Filter>MyPG\Tasks\Game</Filter>
-    </ClCompile>
     <ClCompile Include="ImageManager.cpp">
       <Filter>MyPG\Tasks\Etc</Filter>
     </ClCompile>
@@ -143,6 +140,12 @@
       <Filter>MyPG\Tasks\Game\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="Task_Cloud.cpp">
+      <Filter>MyPG\Tasks\Game\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Task_Bell.cpp">
+      <Filter>MyPG\Tasks\Game\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EChara.cpp">
       <Filter>MyPG\Tasks\Game\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
@@ -216,9 +219,6 @@
     <ClInclude Include="Task_Shot.h">
       <Filter>MyPG\Tasks\Game</Filter>
     </ClInclude>
-    <ClInclude Include="EChara.h">
-      <Filter>MyPG\Tasks\Game</Filter>
-    </ClInclude>
     <ClInclude Include="ImageManager.h">
       <Filter>MyPG\Tasks\Etc</Filter>
     </ClInclude>
@@ -232,6 +232,12 @@
       <Filter>MyPG\Tasks\Game\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="Task_Cloud.h">
+      <Filter>MyPG\Tasks\Game\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Task_Bell.h">
+      <Filter>MyPG\Tasks\Game\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EChara.h">
       <Filter>MyPG\Tasks\Game\Enemy</Filter>
     </ClInclude>
   </ItemGroup>

@@ -116,13 +116,12 @@ namespace  Shot
 			auto enemy = ge->GetTask_Group_GN<Cloud::Object>("“G", "‰_");
 			for (auto it = enemy->begin(); it != enemy->end(); ++it)
 			{
-				if (!(*it)->createdBell)
+				if ((*it)->hp <= 0)
 					continue;
 
 				if (hitBase.OffsetCopy(pos).Hit((*it)->hitBase.OffsetCopy((*it)->pos)))
 				{
-					(*it)->createdBell = true;
-					Kill();
+					--(*it)->hp;
 					return;
 				}
 			}

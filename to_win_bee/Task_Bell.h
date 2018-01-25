@@ -5,11 +5,11 @@
 //-------------------------------------------------------------------
 #include "BChara.h"
 
-namespace  Cloud
+namespace  Bell
 {
 	//タスクに割り当てるグループ名と固有名
 	const  string  defGroupName("敵");	//グループ名
-	const  string  defName("雲");		//タスク名
+	const  string  defName("ベル");		//タスク名
 	//-------------------------------------------------------------------
 	class  Resource
 	{
@@ -49,7 +49,15 @@ namespace  Cloud
 	//変更可◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇
 		//追加したい変数・メソッドはここに追加する
 		//BCharaに含まれないモノのみここに追加する
-		int hp;
-		bool createdBell;
+		enum BellType
+		{
+			Yellow,
+			Blue,
+			White,
+			Red,
+			Flash,
+		};
+		BellType bellType;
+		int damage;
 	};
 }

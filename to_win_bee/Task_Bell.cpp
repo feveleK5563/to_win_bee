@@ -2,18 +2,17 @@
 //
 //-------------------------------------------------------------------
 #include  "MyPG.h"
-#include  "Task_Cloud.h"
 #include  "Task_Bell.h"
 
-namespace  Cloud
+namespace  Bell
 {
 	Resource::WP  Resource::instance;
 	//-------------------------------------------------------------------
 	//リソースの初期化
 	bool  Resource::Initialize()
 	{
-		imageName = "Cloud";
-		DG::Image_Create(imageName, "./data/image/Cloud.png");
+		imageName = "Bell";
+		DG::Image_Create(imageName, "./data/image/Bell.png");
 		return true;
 	}
 	//-------------------------------------------------------------------
@@ -33,15 +32,13 @@ namespace  Cloud
 		this->res = Resource::Create();
 
 		//★データ初期化
-		render2D_Priority[1] = 0.9f;
-
-		hp = 10;
-		hitBase = { -32, -16, 64, 32 };
-		createdBell = false;
-
-		image.ImageCreate(0, 0, 1, 2, 64, 32);
-		image.drawPos = { 32, 16 };
+		render2D_Priority[1] = 0.95f;
+		bellType = Yellow;
+		damage = 0;
 		
+		image.ImageCreate(0, 0, 3, 4);
+		image.drawPos = { 16, 16 };
+
 		//★タスクの生成
 
 		return  true;
@@ -63,18 +60,8 @@ namespace  Cloud
 	//「更新」１フレーム毎に行う処理
 	void  Object::UpDate()
 	{
-		pos += speed;
 		++cntTime;
-		image.animCnt = cntTime / 30.f;
-
-		if (!createdBell && hp <= 0)
-		{
-			createdBell = true;
-			auto bell = Bell::Object::Create(true);
-			bell->pos = pos;
-		}
-		
-		ScreenOutObj();
+		image.animCnt = float((cntTime / 15) % 3);
 	}
 	//-------------------------------------------------------------------
 	//「２Ｄ描画」１フレーム毎に行う処理
