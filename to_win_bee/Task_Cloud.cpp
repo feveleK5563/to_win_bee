@@ -4,6 +4,7 @@
 #include  "MyPG.h"
 #include  "Task_Cloud.h"
 #include  "Task_Bell.h"
+#include  "Task_Player.h"
 
 namespace  Cloud
 {
@@ -72,6 +73,10 @@ namespace  Cloud
 			createdBell = true;
 			auto bell = Bell::Object::Create(true);
 			bell->pos = pos;
+			if (pos.x < float(ge->screen2DWidth / 2))
+				bell->speed.x = 0.3f;
+			else
+				bell->speed.x = -0.3f;
 		}
 		
 		ScreenOutObj();

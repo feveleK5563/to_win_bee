@@ -5,6 +5,7 @@
 #include  "Task_Shot.h"
 #include  "Task_Player.h"
 #include  "Task_Cloud.h"
+#include  "Task_Bell.h"
 #include  "Task_Enemy_Itigo.h"
 #include  "Task_DeathEnemy.h"
 
@@ -113,8 +114,8 @@ namespace  Shot
 	void Object::HitCloudOrBell()
 	{
 		{	//‰_
-			auto enemy = ge->GetTask_Group_GN<Cloud::Object>("“G", "‰_");
-			for (auto it = enemy->begin(); it != enemy->end(); ++it)
+			auto cloud = ge->GetTask_Group_GN<Cloud::Object>("“G", "‰_");
+			for (auto it = cloud->begin(); it != cloud->end(); ++it)
 			{
 				if ((*it)->hp <= 0)
 					continue;
@@ -122,6 +123,18 @@ namespace  Shot
 				if (hitBase.OffsetCopy(pos).Hit((*it)->hitBase.OffsetCopy((*it)->pos)))
 				{
 					--(*it)->hp;
+					return;
+				}
+			}
+		}
+		{	//ƒxƒ‹
+			auto bell = ge->GetTask_Group_GN<Bell::Object>("“G", "ƒxƒ‹");
+			for (auto it = bell->begin(); it != bell->end(); ++it)
+			{
+				if (hitBase.OffsetCopy(pos).Hit((*it)->hitBase.OffsetCopy((*it)->pos)))
+				{
+					(*it)->ChangeType();
+					Kill();
 					return;
 				}
 			}

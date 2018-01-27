@@ -3,7 +3,7 @@
 //-------------------------------------------------------------------
 //
 //-------------------------------------------------------------------
-#include "BChara.h"
+#include "EChara.h"
 
 namespace  Bell
 {
@@ -27,7 +27,7 @@ namespace  Bell
 		string imageName;
 	};
 	//-------------------------------------------------------------------
-	class  Object : public  BChara
+	class  Object : public  EChara
 	{
 	public:
 		virtual  ~Object();
@@ -57,7 +57,12 @@ namespace  Bell
 			Red,
 			Flash,
 		};
-		BellType bellType;
+		const int flashAnim[2] = { 6, 9 };
+		const float acclation = 0.1f;
+		int bellType;
 		int damage;
+
+		void ChangeType();
+		void EffectGrant();
 	};
 }

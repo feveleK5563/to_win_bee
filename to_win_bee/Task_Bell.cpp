@@ -3,6 +3,7 @@
 //-------------------------------------------------------------------
 #include  "MyPG.h"
 #include  "Task_Bell.h"
+#include  "Task_Player.h"
 
 namespace  Bell
 {
@@ -32,10 +33,12 @@ namespace  Bell
 		this->res = Resource::Create();
 
 		//★データ初期化
-		render2D_Priority[1] = 0.95f;
+		render2D_Priority[1] = 0.75f;
 		bellType = Yellow;
 		damage = 0;
-		
+		hitBase = { -16, -16, 32, 32 };
+		speed = { 0.f, -7.f };
+
 		image.ImageCreate(0, 0, 3, 4);
 		image.drawPos = { 16, 16 };
 
@@ -60,14 +63,83 @@ namespace  Bell
 	//「更新」１フレーム毎に行う処理
 	void  Object::UpDate()
 	{
+		if (speed.y > 0.f)
+			speed.y += acclation / 3.f;
+		else
+			speed.y += acclation;
+		pos += speed;
+		ScreenOutObj();
+
 		++cntTime;
+		if (bellType == Flash)
+		{
+			image.baseImageNum = flashAnim[(cntTime / 2) % 2];
+		}
 		image.animCnt = float((cntTime / 15) % 3);
+
+		if (HitPlayer(false))
+		{
+			EffectGrant();
+		}
 	}
 	//-------------------------------------------------------------------
 	//「２Ｄ描画」１フレーム毎に行う処理
 	void  Object::Render2D_AF()
 	{
 		image.ImageRender(pos, res->imageName);
+	}
+
+	//-------------------------------------------------------------------
+	//ベルのタイプ変更(弾ヒット処理)
+	void Object::ChangeType()
+	{
+		++damage;
+		if (speed.y > 0.f)
+			speed.y += -4.f;
+
+		if (!(damage % 7))
+		{
+			if (bellType == Flash)
+			{
+				Kill();
+			}
+			else
+			{
+				++bellType;
+				if (bellType != Flash)
+					image.baseImageNum += 3;
+			}
+		}
+	}
+
+	//-------------------------------------------------------------------
+	//プレイヤーに効果付与
+	void Object::EffectGrant()
+	{
+		auto player = ge->GetTask_One_GN<Player::Object>("本編", "プレイヤー");
+		if (player == nullptr)
+			return;
+
+		switch (bellType)
+		{
+		case Yellow:	//スコアボーナス
+			break;
+
+		case Blue:		//スピードアップ
+			player->baseSpeed += 0.5f;
+			break;
+
+		case White:		//弾種を変更
+			player->ChangeShot();
+			break;
+
+		case Red:		//バリア生成
+			break;
+
+		case Flash:		//分身
+			break;
+		}
+		Kill();
 	}
 
 	//★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★

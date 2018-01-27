@@ -61,6 +61,7 @@ namespace  Player
 
 		float ControllKeyTable();	//移動系キー入力の処理
 		void  MovePlayer();			//プレイヤーの動作処理
+		void  ChangeShot();			//弾種を変える
 		void  CreateShot();			//弾の出現
 	};
 }

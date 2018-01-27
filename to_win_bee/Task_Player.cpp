@@ -38,7 +38,7 @@ namespace  Player
 		state = State1;	//State1 = ’Êí‚ÌƒVƒ‡ƒbƒg
 						//State2 = 2”­“¯Žž
 						//State3 = 3”­“¯Žž
-		baseSpeed = 3.f;
+		baseSpeed = 2.5f;
 		pos = { float(ge->screen2DWidth) / 2, float(ge->screen2DHeight) / 3 * 2 };
 		hitBase = { -8, -8, 16, 16 };
 
@@ -73,17 +73,6 @@ namespace  Player
 
 			MovePlayer();
 			CreateShot();
-
-			//(‰¼)’e‚ÌŽí—Þ•ÏX
-			if (in.B2.down)
-			{
-				if (state == State1)
-					state = State2;
-				else if (state == State2)
-					state = State3;
-				else if (state == State3)
-					state = State1;
-			}
 		}
 	}
 	//-------------------------------------------------------------------
@@ -132,6 +121,16 @@ namespace  Player
 			pos.y = float(image.drawPos.y);
 		if (pos.y > float(ge->screen2DHeight) - image.drawPos.y)
 			pos.y = float(ge->screen2DHeight) - image.drawPos.y;
+	}
+
+	//-------------------------------------------------------------------
+	//’eŽí‚ð•Ï‚¦‚é
+	void Object::ChangeShot()
+	{
+		if		(state == State1)
+			state = State2;
+		else if (state == State2)
+			state = State3;
 	}
 
 	//-------------------------------------------------------------------

@@ -16,5 +16,8 @@ public:
 	EChara(){};
 	virtual ~EChara(){};
 
-	void HitPlayer();
+	//プレイヤーとの当たり判定
+	//引数：プレイヤーが死ぬか否か(bool)
+	//戻り値：プレイヤーに当たったか否か
+	bool HitPlayer(bool killPlayer = true);
 };
