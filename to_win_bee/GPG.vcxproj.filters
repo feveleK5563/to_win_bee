@@ -148,6 +148,9 @@
     <ClCompile Include="EChara.cpp">
       <Filter>MyPG\Tasks\Game\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="Task_Enemy_Diecon.cpp">
+      <Filter>MyPG\Tasks\Game\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="myLib.h">
@@ -238,6 +241,9 @@
       <Filter>MyPG\Tasks\Game\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="EChara.h">
+      <Filter>MyPG\Tasks\Game\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Task_Enemy_Diecon.h">
       <Filter>MyPG\Tasks\Game\Enemy</Filter>
     </ClInclude>
   </ItemGroup>

@@ -3,14 +3,13 @@
 //-------------------------------------------------------------------
 //
 //-------------------------------------------------------------------
-#include "GameEngine_Ver3_7.h"
-#include <random>
+#include "EChara.h"
 
-namespace  EnemyManager
+namespace  Diecon
 {
 	//タスクに割り当てるグループ名と固有名
-	const  string  defGroupName("本編");	//グループ名
-	const  string  defName("敵管理");	//タスク名
+	const  string  defGroupName("敵");	//グループ名
+	const  string  defName("大根");		//タスク名
 	//-------------------------------------------------------------------
 	class  Resource
 	{
@@ -23,12 +22,13 @@ namespace  EnemyManager
 		typedef  weak_ptr<Resource>		WP;
 		static   WP  instance;
 		static  Resource::SP  Create();
+	//変更可◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇
 		//共有する変数はここに追加する
+		string imageName;
 	};
 	//-------------------------------------------------------------------
-	class  Object : public  BTask
+	class  Object : public  EChara
 	{
-	//変更不可◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
 	public:
 		virtual  ~Object();
 		typedef  shared_ptr<Object>		SP;
@@ -37,6 +37,7 @@ namespace  EnemyManager
 		static  Object::SP  Create(bool flagGameEnginePushBack_);
 		Resource::SP	res;
 	private:
+
 		Object();
 		bool  B_Initialize();
 		bool  B_Finalize();
@@ -44,17 +45,9 @@ namespace  EnemyManager
 		void  UpDate();		//「実行」１フレーム毎に行う処理
 		void  Render2D_AF();	//「2D描画」１フレーム毎に行う処理
 		bool  Finalize();		//「終了」タスク消滅時に１回だけ行う処理
-	//変更可◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇
 	public:
+	//変更可◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇
 		//追加したい変数・メソッドはここに追加する
-		std::mt19937	rnd;
-		const int		MaxMonsterNum = 5;
-		int				monsterNum;
-		unsigned int	cntTime;
-
-		void AppCloud();
-		void AppMonster();
-		void AppMonster_Itigo();
-		void AppMonster_Diecon();
+		//BCharaに含まれないモノのみここに追加する
 	};
 }

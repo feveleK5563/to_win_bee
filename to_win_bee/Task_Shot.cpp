@@ -7,6 +7,7 @@
 #include  "Task_Cloud.h"
 #include  "Task_Bell.h"
 #include  "Task_Enemy_Itigo.h"
+#include  "Task_Enemy_Diecon.h"
 #include  "Task_DeathEnemy.h"
 
 namespace  Shot
@@ -95,6 +96,20 @@ namespace  Shot
 	{
 		{	//ƒCƒeƒBƒS
 			auto enemy = ge->GetTask_Group_GN<Itigo::Object>("“G", "ƒCƒeƒBƒS");
+			for (auto it = enemy->begin(); it != enemy->end(); ++it)
+			{
+				if (hitBase.OffsetCopy(pos).Hit((*it)->hitBase.OffsetCopy((*it)->pos)))
+				{
+					auto de = DeathEnemy::Object::Create(true);
+					de->pos = (*it)->pos;
+					(*it)->Kill();
+					Kill();
+					return;
+				}
+			}
+		}
+		{	//‘åª
+			auto enemy = ge->GetTask_Group_GN<Diecon::Object>("“G", "‘åª");
 			for (auto it = enemy->begin(); it != enemy->end(); ++it)
 			{
 				if (hitBase.OffsetCopy(pos).Hit((*it)->hitBase.OffsetCopy((*it)->pos)))

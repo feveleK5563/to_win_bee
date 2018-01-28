@@ -5,6 +5,7 @@
 #include  "Task_Cloud.h"
 #include  "Task_EnemyManager.h"
 #include  "Task_Enemy_Itigo.h"
+#include  "Task_Enemy_Diecon.h"
 
 namespace  EnemyManager
 {
@@ -81,7 +82,7 @@ namespace  EnemyManager
 			return;
 
 		auto cloud = Cloud::Object::Create(true);
-		cloud->pos = { float(16 + rnd() % int(ge->screen2DWidth - 16)), -32.f};
+		cloud->pos = { float(32 + rnd() % int(ge->screen2DWidth - 32)), -32.f};
 		cloud->speed = { 0.f, 1.f };
 	}
 
@@ -89,10 +90,14 @@ namespace  EnemyManager
 	//モンスターの出現
 	void Object::AppMonster()
 	{
-		switch (rnd() % 1)
+		switch (rnd() % 2)
 		{
 		case 0: //イティゴ
 			AppMonster_Itigo();
+			break;
+
+		case 1:	//大根
+			AppMonster_Diecon();
 			break;
 		}
 	}
@@ -110,6 +115,25 @@ namespace  EnemyManager
 		{
 			auto en = Itigo::Object::Create(true);
 			en->pos = { basePos.x - (baseSpd.x * 26.f) * i,
+						basePos.y - (baseSpd.y * 14.f) * i };
+			en->speed = { baseSpd.x, baseSpd.y };
+		}
+	}
+
+	//-------------------------------------------------------------------
+	//大根
+	void Object::AppMonster_Diecon()
+	{
+		ML::Vec2 basePos = { float(16 + rnd() % int(ge->screen2DWidth - 16)), -32.f };
+		ML::Vec2 baseSpd = { 2.f, 2.f };
+		if (basePos.x > float(ge->screen2DWidth / 2))
+			baseSpd.x *= -1.f;
+
+		int num = rnd() % 2 + 2;
+		for (int i = num; i >= 0; --i)
+		{
+			auto en = Diecon::Object::Create(true);
+			en->pos = { basePos.x - (baseSpd.x * 16.f) * i,
 						basePos.y - (baseSpd.y * 14.f) * i };
 			en->speed = { baseSpd.x, baseSpd.y };
 		}

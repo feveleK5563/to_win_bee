@@ -39,8 +39,9 @@ namespace  Player
 						//State2 = 2発同時
 						//State3 = 3発同時
 		baseSpeed = 2.5f;
-		pos = { float(ge->screen2DWidth) / 2, float(ge->screen2DHeight) / 3 * 2 };
+		pos = { float(ge->screen2DWidth) / 2, float(ge->screen2DHeight) + 32 };
 		hitBase = { -8, -8, 16, 16 };
+		noStart = true;
 
 		image.ImageCreate(0, 0, 1, 1);
 		image.baseImageNum = 0;
@@ -67,12 +68,19 @@ namespace  Player
 	//「更新」１フレーム毎に行う処理
 	void  Object::UpDate()
 	{
-		if (state != Death)
+		if (noStart)	//画面下から出てくる処理
 		{
-			in = DI::GPad_GetState("P1");
+			PlayerStart();
+		}
+		else
+		{
+			if (state != Death)
+			{
+				in = DI::GPad_GetState("P1");
 
-			MovePlayer();
-			CreateShot();
+				MovePlayer();
+				CreateShot();
+			}
 		}
 	}
 	//-------------------------------------------------------------------
@@ -80,6 +88,20 @@ namespace  Player
 	void  Object::Render2D_AF()
 	{
 		image.ImageRender(pos, res->imageName);
+	}
+
+	//-------------------------------------------------------------------
+	//画面下から(´；ω；｀)ﾌﾞﾜｯとで、出ますよ
+	void Object::PlayerStart()
+	{
+		if (pos.y <= float(ge->screen2DHeight) - 96.f)
+		{
+			noStart = false;
+		}
+		else
+		{
+			pos.y += -2.f;
+		}
 	}
 
 	//-------------------------------------------------------------------
@@ -113,6 +135,7 @@ namespace  Player
 		}
 		pos += speed;
 
+		//画面外に出ない処理
 		if (pos.x < float(image.drawPos.x))
 			pos.x = float(image.drawPos.x);
 		if (pos.x > float(ge->screen2DWidth) - image.drawPos.x)

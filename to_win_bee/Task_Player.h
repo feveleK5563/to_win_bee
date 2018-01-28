@@ -58,7 +58,9 @@ namespace  Player
 			{  7.f, -15.f },
 		};
 		float baseSpeed;	//基本スピード
+		bool  noStart;		//画面下からブワーッと出てき終わったらfalseになる
 
+		void  PlayerStart();			//画面下からブワーッと出てくる処理
 		float ControllKeyTable();	//移動系キー入力の処理
 		void  MovePlayer();			//プレイヤーの動作処理
 		void  ChangeShot();			//弾種を変える

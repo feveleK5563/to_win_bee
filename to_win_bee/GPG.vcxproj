@@ -103,6 +103,7 @@
     <ClCompile Include="Task_Cloud.cpp" />
     <ClCompile Include="Task_DeathEnemy.cpp" />
     <ClCompile Include="Task_EnemyManager.cpp" />
+    <ClCompile Include="Task_Enemy_Diecon.cpp" />
     <ClCompile Include="Task_Enemy_Itigo.cpp" />
     <ClCompile Include="Task_Game.cpp" />
     <ClCompile Include="Task_GameBG.cpp" />
@@ -136,6 +137,7 @@
     <ClInclude Include="Task_Cloud.h" />
     <ClInclude Include="Task_DeathEnemy.h" />
     <ClInclude Include="Task_EnemyManager.h" />
+    <ClInclude Include="Task_Enemy_Diecon.h" />
     <ClInclude Include="Task_Enemy_Itigo.h" />
     <ClInclude Include="Task_Game.h" />
     <ClInclude Include="Task_GameBG.h" />
