@@ -4,6 +4,7 @@
 #include "EChara.h"
 #include "MyPG.h"
 #include "Task_Player.h"
+#include "Task_Barrier.h"
 
 //-------------------------------------------------------------------
 //プレイヤーとの当たり判定
@@ -22,9 +23,16 @@ bool EChara::HitPlayer(bool killPlayer)
 	{
 		if (killPlayer)
 		{
-			//player->state = Death;
-			//player->cntTime = 0;
-			player->Kill(); //仮
+			if (auto barrier = ge->GetTask_One_GN<Barrier::Object>("本編", "バリア"))
+				barrier->Kill();
+
+			player->life.MinusLife(1);
+			if (player->life.GetLife() <= 0)
+			{
+				player->Kill();
+			}
+
+			player->PlayerInitialize();
 		}
 		return true;
 	}

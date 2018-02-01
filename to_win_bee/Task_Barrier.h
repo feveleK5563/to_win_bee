@@ -5,11 +5,11 @@
 //-------------------------------------------------------------------
 #include "BChara.h"
 
-namespace  Player
+namespace  Barrier
 {
 	//タスクに割り当てるグループ名と固有名
 	const  string  defGroupName("本編");	//グループ名
-	const  string  defName("プレイヤー");		//タスク名
+	const  string  defName("バリア");		//タスク名
 	//-------------------------------------------------------------------
 	class  Resource
 	{
@@ -49,22 +49,7 @@ namespace  Player
 	//変更可◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇
 		//追加したい変数・メソッドはここに追加する
 		//BCharaに含まれないモノのみここに追加する
-
-		DI::VGamePad in;	//コントローラ
-		const float doubleShot[2] = { -4.f, 4.f };
-		const ML::Vec2 threeWayShot[3] = {
-			{ -7.f, -15.f },
-			{  0.f, -15.f },
-			{  7.f, -15.f },
-		};
-		float	baseSpeed;		//基本スピード
-		bool	noStart;		//画面下からブワーッと出てき終わったらfalseになる
-
-		void  PlayerInitialize();	//ライフと以外の初期化処理	
-		void  PlayerStart();		//画面下からブワーッと出てくる処理
-		float ControllKeyTable();	//移動系キー入力の処理
-		void  MovePlayer();			//プレイヤーの動作処理
-		void  ChangeShot();			//弾種を変える
-		void  CreateShot();			//弾の出現
+		ML::Vec2* playerPos;
+		ML::Box2D hb[2];
 	};
 }

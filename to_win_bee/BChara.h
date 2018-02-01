@@ -5,6 +5,7 @@
 //-------------------------------------------------------------------
 #include "GameEngine_Ver3_7.h"
 #include "ImageManager.h"
+#include "Life.h"
 
 class BChara : public BTask
 {
@@ -17,6 +18,8 @@ public:
 	//キャラクタ共通メンバ変数
 
 	//汎用状態管理
+	bool active;
+
 	enum State
 	{
 		Non,		//描画も更新もしない
@@ -38,10 +41,12 @@ public:
 
 	//その他
 	ImageManager	image;		//画像管理屋さん
+	Life			life;		//体力
 	int				cntTime;	//汎用タイマー
 
 	//メンバ変数の初期化
 	BChara():
+		active(true),
 		pos(0, 0),
 		speed(0, 0),
 		hitBase(0, 0, 0, 0),

@@ -39,8 +39,9 @@ namespace  Game
 		auto bg = GameBG::Object::Create(true);
 		//プレイヤータスク
 		auto pl = Player::Object::Create(true);
-		//敵タスク
+		//敵出現タスク
 		auto en = EnemyManager::Object::Create(true);
+		en->LoadEnemyTable(0);
 
 		//★タスクの生成
 

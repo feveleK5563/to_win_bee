@@ -47,11 +47,21 @@ namespace  EnemyManager
 	//変更可◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇
 	public:
 		//追加したい変数・メソッドはここに追加する
+		struct AppEnemyData
+		{
+			int appPoint;
+			ML::Vec2 pos;
+			int type;
+		};
+		vector<AppEnemyData*> aed;
+
 		std::mt19937	rnd;
 		const int		MaxMonsterNum = 5;
 		int				monsterNum;
 		unsigned int	cntTime;
 
+		void LoadEnemyTable(int stageNum);
+		void EraseEnemyTable();
 		void AppCloud();
 		void AppMonster();
 		void AppMonster_Itigo();

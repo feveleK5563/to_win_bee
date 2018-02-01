@@ -2,19 +2,18 @@
 //
 //-------------------------------------------------------------------
 #include  "MyPG.h"
-#include  "Task_Bell.h"
-#include  "Task_Player.h"
 #include  "Task_Barrier.h"
+#include  "Task_Player.h"
 
-namespace  Bell
+namespace  Barrier
 {
 	Resource::WP  Resource::instance;
 	//-------------------------------------------------------------------
 	//リソースの初期化
 	bool  Resource::Initialize()
 	{
-		imageName = "Bell";
-		DG::Image_Create(imageName, "./data/image/Bell.png");
+		imageName = "Barrier";
+		DG::Image_Create(imageName, "./data/image/Barrier.png");
 		return true;
 	}
 	//-------------------------------------------------------------------
@@ -34,15 +33,16 @@ namespace  Bell
 		this->res = Resource::Create();
 
 		//★データ初期化
-		render2D_Priority[1] = 0.75f;
-		bellType = Yellow;
-		damage = 0;
-		hitBase = { -16, -16, 32, 32 };
-		speed = { 0.f, -6.f };
+		render2D_Priority[1] = 0.5f;
+		life.SetLife(10);
+		if (auto player = ge->GetTask_One_GN<Player::Object>("本編", "プレイヤー"))
+		{
+			playerPos = &player->pos;
+		}
 
-		image.ImageCreate(0, 0, 3, 4);
-		image.drawPos = { 16, 16 };
-
+		image.ImageCreate(0, 0, 1, 2, 64, 32);
+		image.drawPos = { 48, 16 };
+		
 		//★タスクの生成
 
 		return  true;
@@ -64,91 +64,13 @@ namespace  Bell
 	//「更新」１フレーム毎に行う処理
 	void  Object::UpDate()
 	{
-		if (speed.y > 0.f)
-			speed.y += acclation / 3.f;
-		else
-			speed.y += acclation;
-		pos += speed;
-		ScreenOutObj();
-
-		++cntTime;
-		if (bellType == Flash)
-		{
-			image.baseImageNum = flashAnim[(cntTime / 2) % 2];
-		}
-		image.animCnt = float((cntTime / 15) % 3);
-
-		if (HitPlayer(false))
-		{
-			EffectGrant();
-		}
+		image.animCnt += 0.2f;
 	}
 	//-------------------------------------------------------------------
 	//「２Ｄ描画」１フレーム毎に行う処理
 	void  Object::Render2D_AF()
 	{
-		image.ImageRender(pos, res->imageName);
-	}
-
-	//-------------------------------------------------------------------
-	//ベルのタイプ変更(弾ヒット処理)
-	void Object::ChangeType()
-	{
-		++damage;
-		if (speed.y > 0.f)
-			speed.y = -4.f;
-
-		if (!(damage % 7))
-		{
-			if (bellType == Flash)
-			{
-				Kill();
-			}
-			else
-			{
-				++bellType;
-				if (bellType != Flash)
-					image.baseImageNum += 3;
-			}
-		}
-	}
-
-	//-------------------------------------------------------------------
-	//プレイヤーに効果付与
-	void Object::EffectGrant()
-	{
-		auto player = ge->GetTask_One_GN<Player::Object>("本編", "プレイヤー");
-		if (player == nullptr)
-			return;
-
-		switch (bellType)
-		{
-		case Yellow:	//スコアボーナス
-			break;
-
-		case Blue:		//スピードアップ
-			player->baseSpeed += 0.5f;
-			break;
-
-		case White:		//弾種を変更
-			player->ChangeShot();
-			break;
-
-		case Red:		//バリア生成
-			if (auto barrier = ge->GetTask_One_GN<Barrier::Object>("本編", "バリア"))
-			{
-				barrier->life.SetLife(10);
-			}
-			else
-			{
-				auto newBarrier = Barrier::Object::Create(true);
-			}
-			break;
-
-		case Flash:		//分身
-			break;
-		}
-		Kill();
+		image.ImageRender(*playerPos, res->imageName);
 	}
 
 	//★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★

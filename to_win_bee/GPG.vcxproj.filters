@@ -151,6 +151,12 @@
     <ClCompile Include="Task_Enemy_Diecon.cpp">
       <Filter>MyPG\Tasks\Game\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="Task_Barrier.cpp">
+      <Filter>MyPG\Tasks\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Life.cpp">
+      <Filter>MyPG\Tasks\Etc</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="myLib.h">
@@ -245,6 +251,12 @@
     </ClInclude>
     <ClInclude Include="Task_Enemy_Diecon.h">
       <Filter>MyPG\Tasks\Game\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Task_Barrier.h">
+      <Filter>MyPG\Tasks\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Life.h">
+      <Filter>MyPG\Tasks\Etc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

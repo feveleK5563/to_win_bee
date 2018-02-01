@@ -9,6 +9,17 @@
 
 namespace  EnemyManager
 {
+	std::istream& operator >>(
+		std::istream& i,
+		EnemyManager::Object::AppEnemyData& data)
+	{
+		i >> data.appPoint >>
+			data.pos.x >>
+			data.pos.y >>
+			data.type;
+		return i;
+	}
+
 	Resource::WP  Resource::instance;
 	//-------------------------------------------------------------------
 	//リソースの初期化
@@ -32,8 +43,6 @@ namespace  EnemyManager
 		this->res = Resource::Create();
 
 		//★データ初期化
-		rnd.seed(0);
-
 		monsterNum = 0;
 		cntTime = 0;
 		
@@ -75,12 +84,27 @@ namespace  EnemyManager
 	}
 
 	//-------------------------------------------------------------------
+	//敵の読み込み
+	void Object::LoadEnemyTable(int stageNum)
+	{
+
+	}
+
+	//-------------------------------------------------------------------
+	//読み込んだ敵データの解放
+	void Object::EraseEnemyTable()
+	{
+		int size = aed.size();
+		for (int i = 0; i < size; ++i)
+			delete aed[i];
+		aed.clear();
+		aed.shrink_to_fit();
+	}
+
+	//-------------------------------------------------------------------
 	//雲の出現
 	void Object::AppCloud()
 	{
-		if (rnd() % 2)
-			return;
-
 		auto cloud = Cloud::Object::Create(true);
 		cloud->pos = { float(32 + rnd() % int(ge->screen2DWidth - 32)), -32.f};
 		cloud->speed = { 0.f, 1.f };

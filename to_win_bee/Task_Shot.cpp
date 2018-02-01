@@ -4,6 +4,7 @@
 #include  "MyPG.h"
 #include  "Task_Shot.h"
 #include  "Task_Player.h"
+#include  "Task_Barrier.h"
 #include  "Task_Cloud.h"
 #include  "Task_Bell.h"
 #include  "Task_Enemy_Itigo.h"
@@ -160,14 +161,30 @@ namespace  Shot
 	//プレイヤーとの当たり判定
 	void Object::HitPlayer()
 	{
-		auto player = ge->GetTask_One_GN<Player::Object>("本編", "プレイヤー");
-		if (player == nullptr)
-			return;
-
-		if (hitBase.OffsetCopy(pos).Hit(player->hitBase.OffsetCopy(player->pos)))
+		//バリア
+		if (auto barrier = ge->GetTask_One_GN<Barrier::Object>("本編", "バリア"))
 		{
-			player->Kill();
-			Kill();
+			if (hitBase.OffsetCopy(pos).Hit(barrier->hb[0].OffsetCopy(barrier->pos)) ||
+				hitBase.OffsetCopy(pos).Hit(barrier->hb[1].OffsetCopy(barrier->pos)))
+			{
+				barrier->life.MinusLife(1);
+				if (barrier->life.GetLife() <= 0)
+					barrier->Kill();
+
+				Kill();
+				return;
+			}
+		}
+		{	//プレイヤー
+			auto player = ge->GetTask_One_GN<Player::Object>("本編", "プレイヤー");
+			if (player == nullptr)
+				return;
+
+			if (hitBase.OffsetCopy(pos).Hit(player->hitBase.OffsetCopy(player->pos)))
+			{
+				player->Kill();
+				Kill();
+			}
 		}
 	}
 

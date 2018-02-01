@@ -96,9 +96,11 @@
     <ClCompile Include="DI2014_Ver3_4.cpp" />
     <ClCompile Include="EChara.cpp" />
     <ClCompile Include="GameEngine_Ver3_7.cpp" />
+    <ClCompile Include="Life.cpp" />
     <ClCompile Include="ImageManager.cpp" />
     <ClCompile Include="myLib.cpp" />
     <ClCompile Include="MyPG.cpp" />
+    <ClCompile Include="Task_Barrier.cpp" />
     <ClCompile Include="Task_Bell.cpp" />
     <ClCompile Include="Task_Cloud.cpp" />
     <ClCompile Include="Task_DeathEnemy.cpp" />
@@ -130,9 +132,11 @@
     <ClInclude Include="EChara.h" />
     <ClInclude Include="EFile.h" />
     <ClInclude Include="GameEngine_Ver3_7.h" />
+    <ClInclude Include="Life.h" />
     <ClInclude Include="ImageManager.h" />
     <ClInclude Include="myLib.h" />
     <ClInclude Include="MyPG.h" />
+    <ClInclude Include="Task_Barrier.h" />
     <ClInclude Include="Task_Bell.h" />
     <ClInclude Include="Task_Cloud.h" />
     <ClInclude Include="Task_DeathEnemy.h" />

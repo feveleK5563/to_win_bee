@@ -35,13 +35,10 @@ namespace  Player
 		//★データ初期化
 		render2D_Priority[1] = 0.5f;
 
-		state = State1;	//State1 = 通常のショット
-						//State2 = 2発同時
-						//State3 = 3発同時
+		life.SetLife(3);
 		baseSpeed = 2.5f;
-		pos = { float(ge->screen2DWidth) / 2, float(ge->screen2DHeight) + 32 };
 		hitBase = { -8, -8, 16, 16 };
-		noStart = true;
+		PlayerInitialize();
 
 		image.ImageCreate(0, 0, 1, 1);
 		image.baseImageNum = 0;
@@ -91,7 +88,18 @@ namespace  Player
 	}
 
 	//-------------------------------------------------------------------
-	//画面下から(´；ω；｀)ﾌﾞﾜｯとで、出ますよ
+	//ライフ以外の初期化処理
+	void Object::PlayerInitialize()
+	{
+		pos = { float(ge->screen2DWidth) / 2, float(ge->screen2DHeight) + 32 };
+		state = State1;	//State1 = 通常のショット
+						//State2 = 2発同時
+						//State3 = 3発同時
+		noStart = true;
+	}
+
+	//-------------------------------------------------------------------
+	//画面下からでてくる
 	void Object::PlayerStart()
 	{
 		if (pos.y <= float(ge->screen2DHeight) - 96.f)
